@@ -41,9 +41,15 @@ TEST(Methods, distanceToCenter){
     ASSERT_NEAR(0, f.distanceToCenter(angle), 0.000001);
 }
 
-TEST(Methods, distanceToCenterException){
+TEST(Methods, distanceToCenterException1){
     foliumOfDescartes f;
     double angle = 7;
+    ASSERT_ANY_THROW(f.distanceToCenter(angle));
+}
+
+TEST(Methods, distanceToCenterException2){
+    foliumOfDescartes f;
+    double angle = 7 * M_PI / 4;
     ASSERT_ANY_THROW(f.distanceToCenter(angle));
 }
 

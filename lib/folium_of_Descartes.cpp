@@ -19,10 +19,10 @@ namespace fancyCurve {
 
     double foliumOfDescartes::distanceToCenter (double angle) const {
         if (!correct(angle))
-            throw std::invalid_argument("Angle must be from 0 to 2*Pi");
+            throw std::invalid_argument("Angle must be from 0 to 2Pi");
         double c = cos(angle), s = sin(angle);
         double d = c*c*c + s*s*s;
-        if (d == 0)
+        if (angle == (7 * M_PI / 4))
             throw std::invalid_argument("Division by zero!");
         return n * c * s / d;
     }
