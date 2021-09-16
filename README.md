@@ -1,7 +1,7 @@
 # The folium of Descartes
 > It's an algebraic curve that described by following equation:
 x^3 + y^3 = nxy
-# Description
+## Description
 1. Function **get_n()** returns a value of parameter *n*.
 2. Function **set_n(double n)** lets a user set a value of parameter *n*. Returns a changed example of class.
 3. Function **getSide()** returns the side of a square that is equal to the largest chord of the folium.
