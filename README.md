@@ -13,5 +13,4 @@ x^3 + y^3 = nxy
 9. Function **distanceToDiameter()** returns the distance from the node to the largest diameter.
 
 ### Note:
-* Parameter n must be positive, because it is geometrically a diagonal of square that has side equal to chord of the folium. (*Actually, it can be negative, but I don't like TFCV. Hope you don't either.*)
-* Angle in polar coordinates must be in the following interval: [0; 2Pi].
+* Angle in polar coordinates must be in radians and in the following interval: [0; 2Pi].
