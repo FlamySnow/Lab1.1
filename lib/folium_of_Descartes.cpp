@@ -4,30 +4,29 @@
 #include "folium_of_Descartes.hpp"
 
 namespace fancyCurve {
-    foliumOfDescartes::foliumOfDescartes (double a) {
-        if (a <= 0)
-            throw invalid_argument("Parameter 'n' must be more than zero");
-        n = a;
-    }
-
-    foliumOfDescartes& foliumOfDescartes::set_n (double a) {
-        if (a <= 0)
-            throw invalid_argument("Parameter 'n' must be more than zero");
-        n = a;
-        return *this;
-    }
 
     double foliumOfDescartes::distanceToCenter (double angle) const {
         if (!correct(angle))
             throw std::invalid_argument("Angle must be from 0 to 2Pi");
         double c = cos(angle), s = sin(angle);
-        double d = c*c*c + s*s*s;
+        double a = c*c*c + s*s*s;
         if (angle == (7 * M_PI / 4))
             throw std::invalid_argument("Division by zero!");
-        return n * c * s / d;
+        double d = n * c * s / a;
+        if (d < 0)
+            return 0;
+        return d;
     }
 
     void foliumOfDescartes::print() const {
-        cout << "x^3 + y^3 = " << n << "xy" << endl;
+        if (n == 0) {
+            std::cout << "x^3 + y^3 = 0" << std::endl;
+            return;
+        }
+        if (n == 1) {
+            std::cout << "x^3 + y^3 = xy" << std::endl;
+            return;
+        }
+        std::cout << "x^3 + y^3 = " << n << "xy" << std::endl;
     }
 }

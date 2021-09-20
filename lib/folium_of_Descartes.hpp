@@ -4,14 +4,15 @@
 
 #ifndef LAB_1_1_FOLIUM_OF_DESCARTES_HPP
 #define LAB_1_1_FOLIUM_OF_DESCARTES_HPP
-#define _USE_MATH_DEFINES
 #include "iostream"
 #include "cmath"
+#include <cstdlib>
 
-using std::cout;
-using std::invalid_argument;
-using std::cin;
-using std::endl;
+typedef enum {
+    ok,
+    incorrect_input,
+    eof
+} errorType;
 
 namespace fancyCurve {
     class foliumOfDescartes {
@@ -19,25 +20,25 @@ namespace fancyCurve {
         double n; //parameter
     public:
         //constructor
-        foliumOfDescartes (double a = 1);
+        explicit inline foliumOfDescartes (double a = 1) {n = a;};
         //setter
-        foliumOfDescartes& set_n (double a);
+        inline foliumOfDescartes& set_n (double a) {n = a; return *this;};
         //getter
-        double get_n () const {return n;}
+        [[nodiscard]] inline double get_n () const {return n;}
         //return side of square
-        double getSide () const {return n / sqrt(2);}
+        [[nodiscard]] inline double getSide () const {return fabs(n / sqrt(2));}
         //return distance to center in dependence of angle
-        double distanceToCenter (double angle) const;
+        [[nodiscard]] double distanceToCenter (double angle) const;
         //return radius of curvature in the top of the folium
-        double topRadius () const {return n / (8 * sqrt(2));}
+        [[nodiscard]] inline double topRadius () const {return fabs(n / (8 * sqrt(2)));}
         // -//- in the node point
-        double nodeRadius () const {return n / 2;}
+        [[nodiscard]] inline double nodeRadius () const {return fabs(n / 2);}
         //square of loop
-        double squareOfLoop () const {return n * n / 6;}
+        [[nodiscard]] inline double squareOfLoop () const {return n * n / 6;}
         //the largest diameter of the loop
-        double diameterOfLoop () const {return n * sqrt(4 * sqrt(3) - 6) / 3;}
+        [[nodiscard]] inline double diameterOfLoop () const {return fabs(n * sqrt(4 * sqrt(3) - 6) / 3);}
         //distance from the loop to the largest diameter
-        double distanceToDiameter () const {return n / sqrt(6);}
+        [[nodiscard]] inline double distanceToDiameter () const {return fabs(n / sqrt(6));}
         //print equation
         void print () const;
     };
@@ -47,11 +48,16 @@ namespace fancyCurve {
     }
 
     template <class T>
-    int getNum (T &a){
+    errorType getNum (T &a){
         std::cin >> a;
-        if (!std::cin.good())
-            return -1;
-        return 1;
+        if (!std::cin.good()) {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            return incorrect_input;
+        }
+        if (std::cin.eof())
+            return eof;
+        return ok;
     }
 }
 
