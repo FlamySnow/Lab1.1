@@ -10,7 +10,7 @@ namespace fancyCurve {
             throw std::invalid_argument("Angle must be from 0 to 2Pi");
         double c = cos(angle), s = sin(angle);
         double a = c*c*c + s*s*s;
-        if (angle == (7 * M_PI / 4))
+        if (angle == (7 * M_PI / 4) || angle == (3 * M_PI / 4))
             throw std::invalid_argument("Division by zero!");
         double d = n * c * s / a;
         if (d < 0)
